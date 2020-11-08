@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub 帳號查詢</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js'></script>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.9.6/tailwind.min.css'/>
+</head>
+<body>
+    <div id="app">
+            <div style="background-image: url(http://fotricle.rocket-coding.com:80/Upload/brand/info/20201015110125.jpg);"
+                :style="{'background-position-y': positionY+'px' }"
+                class="h-40 bg-cover bg-no-repeat" id="img"></div>
+            <aside
+            class="p-5 flex justify-start items-center"
+            v-if='usersData.avatar_url'
+            >
+                <img class="w-20 rounded-full" :src='usersData.avatar_url' alt="">
+                <ul class="flex">
+                    <li class="ml-3">{{ usersData.login }}</li>
+                    <li class="ml-3">Follows: {{ usersData.followers }}</li>
+                    <li class="ml-3">Repositories: {{ usersData.public_repos }}</li>
+                    <li class="ml-3">Link:
+                        <a 
+                        :href="usersData.html_url" target="_blank"
+                        class="inline-black ml-2 px-2 py-1 bg-blue-800 text-white rounded-lg hover:bg-blue-600"
+                        > GitHub</a>
+                    </li>
+                </ul>
+            </aside>
+            <main class="p-5">
+                <ul>
+                    <li 
+                    v-for='repo of userRepos'
+                    :key="repo.id"
+                    class="p-5 rounded-lg shadow-lg mb-3 bg-gray-400"
+                    >
+                        <div class="flex justify-between">
+                            <h2 class="font-semibold text-xl mb-3">{{ repo.name }}</h2>
+                            <ul class="text-xs">
+                                <li>專案成立時間：{{new Date(repo.created_at).toLocaleString() }}</li>
+                                <li>最後更新時間：{{ new Date(repo.updated_at).toLocaleString() }}</li>
+                            </ul>
+                        </div>
+                        <p class="mb-3" v-if='repo.description'>{{ repo.description }}</p>
+                        <p class="mb-3" v-if='!repo.description'>無專案描述內容</p>
+                        <a :href="repo.html_url" target="_blank" class="inline-black px-2 py-1 bg-blue-800 text-white rounded-lg hover:bg-blue-600">查看原始碼</a>
+                    </li>
+                </ul>
+            </main>
+            <div style="background-image: url(http://fotricle.rocket-coding.com:80/Upload/brand/info/20201015110125.jpg);"
+                :style="{'background-position-y': positionY+'px' }"
+                class="h-40 bg-cover bg-no-repeat"></div>
+    </div>
+    <script src="all.js"></script>
+</body>
+</html>
