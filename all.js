@@ -11,7 +11,6 @@ new Vue ({
             const API = 'https://api.github.com/users/jazztyy'
             axios.get(API)
             .then(res => {
-                console.log(res.data);
                 this.usersData = res.data
             })
       },
@@ -19,7 +18,6 @@ new Vue ({
           const API = 'https://api.github.com/users/jazztyy/repos'
           axios.get(API)
             .then(res => {
-                console.log(res.data);
                 this.userRepos = res.data
             })
       },
